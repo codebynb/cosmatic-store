@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Glow Beauty | Premium Makeup Store</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI, Arial;
+    background:#f6f6f6;
+}
+header{
+    background:#000;
+    color:#fff;
+    padding:20px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+header h2 span{color:#e91e63;}
+.cart{
+    font-size:18px;
+}
+.banner{
+    background:linear-gradient(to right,#e91e63,#000);
+    color:white;
+    padding:60px;
+    text-align:center;
+}
+.banner h1{font-size:42px;}
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    padding:50px;
+}
+.product{
+    background:white;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+    overflow:hidden;
+    transition:0.3s;
+}
+.product:hover{transform:translateY(-5px);}
+.product img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+.product h4{
+    padding:10px;
+}
+.product p{
+    padding:0 10px;
+    color:#555;
+}
+.product button{
+    width:100%;
+    padding:12px;
+    background:#e91e63;
+    border:none;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+.cart-box{
+    background:white;
+    margin:20px 50px;
+    padding:25px;
+    border-radius:12px;
+}
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+}
+.buy-btn{
+    margin-top:10px;
+    padding:14px;
+    width:100%;
+    background:black;
+    color:white;
+    border:none;
+    font-size:16px;
+}
+footer{
+    background:#000;
+    color:#aaa;
+    text-align:center;
+    padding:15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Glow <span>Beauty</span></h2>
+    <div class="cart">Cart: <span id="cartCount">0</span></div>
+</header>
+
+<div class="banner">
+    <h1>Luxury Makeup Collection</h1>
+    <p>Premium | Authentic | Professional</p>
+</div>
+
+<div class="products" id="products"></div>
+
+<div class="cart-box">
+    <h3>Shopping Cart</h3>
+    <div id="cartItems"></div>
+    <hr>
+    <h4>Total: Rs. <span id="total">0</span></h4>
+    <button class="buy-btn" onclick="buyNow()">Buy Now</button>
+</div>
+
+<footer>
+    © 2026 Glow Beauty – Premium Makeup Store
+</footer>
+
+<script>
+let cartCount=0;
+let total=0;
+
+const productNames=[
+"Foundation","Lipstick","Mascara","Blush","Eyeliner","Concealer","Highlighter","Compact Powder","Primer","Setting Spray"
+];
+
+let productsDiv=document.getElementById("products");
+
+for(let i=1;i<=100;i++){
+    let name=productNames[i%10]+" "+i;
+    let price=1500+(i*20);
+
+    productsDiv.innerHTML+=`
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
+        <h4>${name}</h4>
+        <p>Price: Rs. ${price}</p>
+        <button onclick="addToCart('${name}',${price})">Add to Cart</button>
+    </div>`;
+}
+
+function addToCart(name,price){
+    cartCount++;
+    total+=price;
+    document.getElementById("cartCount").innerText=cartCount;
+    document.getElementById("total").innerText=total;
+
+    let div=document.createElement("div");
+    div.className="cart-item";
+    div.innerHTML=`<span>${name}</span><span>Rs. ${price}</span>`;
+    document.getElementById("cartItems").appendChild(div);
+}
+
+function buyNow(){
+    if(cartCount==0){
+        alert("Your cart is empty!");
+    }else{
+        alert("Order placed successfully!\nTotal: Rs. "+total);
+        location.reload();
+    }
+}
+</script>
+
+</body>
+</html>
